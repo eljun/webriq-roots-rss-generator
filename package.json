@@ -1,0 +1,29 @@
+{
+  "name": "roots-rss-generator",
+  "version": "0.1.0",
+  "description": "Extension for creating RSS using the roots-collection module",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "console.log lib/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eljun/webriq-roots-rss-generator.git"
+  },
+  "keywords": [
+    "roots",
+    "rss",
+    "generator"
+  ],
+  "author": "Eleazar Junsan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eljun/webriq-roots-rss-generator/issues"
+  },
+  "homepage": "https://github.com/eljun/webriq-roots-rss-generator#readme",
+  "dependencies": {
+    "lodash": "^4.13.1",
+    "roots-collections": "^0.3.3",
+    "slugify": "^0.1.1"
+  }
+}
