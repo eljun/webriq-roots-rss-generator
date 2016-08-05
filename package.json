@@ -25,7 +25,6 @@
     "lodash": "^4.13.1",
     "rapture": "0.0.7",
     "rss": "^1.2.1",
-    "yaml-front-matter": "^3.4.0",
-    "lodash": "4.14.1"
+    "yaml-front-matter": "^3.4.0"
   }
 }

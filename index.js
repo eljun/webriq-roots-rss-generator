@@ -8,11 +8,11 @@
 
 var _, RSS, fs, path, yfm, sortBy, config;
 
-fs = require('fs');
-path = require('path');
-_ = require('lodash');
-yfm = require('yaml-front-matter');
-RSS = require('rss');
+fs     = require('fs');
+path   = require('path');
+_      = require('lodash');
+yfm    = require('yaml-front-matter');
+RSS    = require('rss');
 config = require('./lib/config');
 
 module.exports = function(opts) {

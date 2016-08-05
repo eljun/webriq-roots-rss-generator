@@ -12,7 +12,7 @@ $ npm i webriq-roots-rss-generator --save
 
 ## Features
 
-- Create customize `rss` feed for your post files individually
+- Create customize `rss` feed for your `markdown` files.
 - Create `json` out from your post files (soon)
 - Fast & easy to customize
 - Auto compile for every post change
@@ -35,14 +35,14 @@ These are the available options you can set.
 
 ## Configurations
 
-Go to `app.coffee` from your project directory and add the module.
+Go to `app.coffee` from your roots project directory and add the module.
 
 ```bash
 var roots_rss_generator = require('webriq-roots-rss-generator')
 
 ```
 
-Add in the extension instance
+Add in the extension instance.
 ```bash
 extensions: [   
     roots_rss_generator(
@@ -64,6 +64,6 @@ extensions: [
 
 ##Contributing 
 
-This module is still at its early version so there could be some bug, so feel free to add some suggestions and fixes to help improve the module. I will do my best to improve the plugin so everyone will be happy. Thanks
+This module is still at its early version so there could be some bug. Feel free to add suggestion's and fixes to help improve the module. I will do my best to improve the plugin so everyone will be happy. Thanks
 
  
