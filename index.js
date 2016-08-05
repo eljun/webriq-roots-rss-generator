@@ -130,8 +130,7 @@ module.exports = function(opts) {
                 description: content,
                 url: settings.site_url + "/" + folder + "/" + slug,
                 enclosure: {
-                    url: settings.site_url + banner,
-                    file: './public/' + banner
+                    url: settings.site_url + banner
                 }
             });
         };
