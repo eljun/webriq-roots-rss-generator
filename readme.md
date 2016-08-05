@@ -1,6 +1,6 @@
 # Webriq roots rss generator
 
-A WebriQ extension for static cms page that generate rss feed.
+A WebriQ extension for static cms page that **generate rss feed**.
 
 ## Installation
 
@@ -13,7 +13,7 @@ $ npm i webriq-roots-rss-generator --save
 ## Features
 
 - Create customize `rss` feed for your `markdown` files.
-- Create `json` out from your post files (soon)
+- Create `json` out from your post files (**soon**)
 - Fast & easy to customize
 - Auto compile for every post change
 
@@ -24,8 +24,8 @@ These are the available options you can set.
 
 - `folder` - sets the directory to scan for `.md` files eg: `/posts`
 - `output` - path to save compile rss feed.
-- `maxcount` - number of post to be compiled (default is 15).
-- `json` - path to save compile json file (soon).
+- `maxcount` - number of post to be compiled (**default is 15**).
+- `json` - path to save compile json file (**soon**).
 - `settings` - configures rss header, it has (5) five editable elements namely:
 	- `title` - sets the header title
 	- `feed_url` - the path for your feed url
@@ -39,7 +39,6 @@ Go to `app.coffee` from your roots project directory and add the module.
 
 ```bash
 var roots_rss_generator = require('webriq-roots-rss-generator')
-
 ```
 
 Add in the extension instance.
@@ -59,7 +58,7 @@ extensions: [
 ## Other notes
 
 - This module is only applicable when your are using http://roots.cx/
-- This module uses https://www.npmjs.com/package/rss. (NOTE: Not all options were added thought).
+- This module uses https://www.npmjs.com/package/rss. **(NOTE: Not all options were added thought)**.
 
 
 ##Contributing 
