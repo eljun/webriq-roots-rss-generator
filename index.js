@@ -85,12 +85,20 @@ module.exports = function(opts) {
                         entry     = yfm.loadFront(path.join(folder, files[i]));
                         title     = entry.title;
                         date      = entry.date;
-                        category  = entry.categories.split(" ");
+                        category  = emptyCategory();
                         banner    = entry.banner;
                         shortdesc = entry.shortdesc;
                         slug      = extension.formatter(entry.title);
                         content   = entry.__content;
-
+                        contentWithImage = "<img src='"+ settings.site_url + banner +"' class='img-responsive'>" + content;
+                        // If category is empty
+                        function emptyCategory(){
+                            if( "categories" in entry ){
+                                return entry.categories.split(" ");
+                            } else {
+                                return folder;
+                            }
+                        }
                         //  Add entry to our feeds
                         //  Please refer to this site for more configuration
                         //  Url: https://www.npmjs.com/package/rss
@@ -117,7 +125,7 @@ module.exports = function(opts) {
 
         // Search directory for markdown files
         RSSGenerator.prototype.searchPath = function() {
-            var entry, title, date, banner, shortdesc, content, slug, xml, enclosure;
+            var entry, title, date, banner, shortdesc, content, slug, xml, enclosure, contentWithImage;
             return fs.readdir(folder, this.compiler);
         };
 
@@ -127,7 +135,7 @@ module.exports = function(opts) {
                 title: title,
                 date: date,
                 categories: [category],
-                description: content,
+                description: contentWithImage,
                 url: settings.site_url + "/" + folder + "/" + slug,
                 enclosure: {
                     url: settings.site_url + banner
