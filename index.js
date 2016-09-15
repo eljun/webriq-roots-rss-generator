@@ -91,7 +91,7 @@ module.exports = function(opts) {
                             "category": extension.emptyCategory(entry),
                             "banner": entry.banner,
                             "shortdesc": entry.shortdesc,
-                            "slug": extension.formatter(entry.title),
+                            "slug": extension.emptySlug(entry),
                             "contentWithImage": "<img src='"+ settings.site_url + entry.banner +"' class='img-responsive'>" + entry.__content
                         }
                         arr.push(json)
@@ -161,15 +161,21 @@ module.exports = function(opts) {
         RSSGenerator.prototype.writeJSON = function(source, data, callback_) {
             fs.writeFile(source, data, 'utf8', callback_);
         };
-
+        RSSGenerator.prototype.emptySlug = function( element ) {
+            if( element.cmsUserSlug.length === 0 ) {
+                return this.formatter( element.title );
+            }
+            return element.cmsUserSlug;
+        }
         RSSGenerator.prototype.emptyCategory = function( element ){
             if( "categories" in element ){
-                return element.categories.split(" ");
-            } else {
-                return folder;
+                 if( element.categories == null ) {
+                    return folder;
+                 }
+                 return element.categories.split(" ");
             }
+            return folder;
         }
-
         return RSSGenerator;
     })();
 };
