@@ -64,6 +64,9 @@ module.exports = function(opts) {
             var extension;
             extension = this;
 
+            var arr = [];
+            var feedEntries = {};
+
             // Initialize our RSS mockup here
             // This is our XML headers
             feed = new RSS( settings );
@@ -72,7 +75,6 @@ module.exports = function(opts) {
             this.compiler = function(error, files) {
 
                 counter = files.length;
-                files.sort(extension.sortDescending);
 
                 if (error) {
                     extension.callError(error);
@@ -83,40 +85,51 @@ module.exports = function(opts) {
                         //  Then use yaml front matter
                         //  Re-structure our files
                         entry     = yfm.loadFront(path.join(folder, files[i]));
-                        title     = entry.title;
-                        date      = entry.date;
-                        category  = emptyCategory();
-                        banner    = entry.banner;
-                        shortdesc = entry.shortdesc;
-                        slug      = extension.formatter(entry.title);
-                        content   = entry.__content;
-                        contentWithImage = "<img src='"+ settings.site_url + banner +"' class='img-responsive'>" + content;
-                        // If category is empty
-                        function emptyCategory(){
-                            if( "categories" in entry ){
-                                return entry.categories.split(" ");
-                            } else {
-                                return folder;
-                            }
+                        var json = {
+                            "title": entry.title,
+                            "date": entry.date,
+                            "category": extension.emptyCategory(entry),
+                            "banner": entry.banner,
+                            "shortdesc": entry.shortdesc,
+                            "slug": extension.formatter(entry.title),
+                            "contentWithImage": "<img src='"+ settings.site_url + entry.banner +"' class='img-responsive'>" + entry.__content
                         }
-                        //  Add entry to our feeds
-                        //  Please refer to this site for more configuration
-                        //  Url: https://www.npmjs.com/package/rss
-                        extension.feedItems();
-
-                        //  Cache our files structure here
-                        xml = feed.xml();
-
-                        //  After re-structuring our files
-                        //  Write them to xml file
-                        //  Store the outfile to desire location
-                        extension.writeFile(output, xml, extension.compiler);
-
-                        // End our loop here
+                        arr.push(json)
                         i++;
                     }
-                    while (i < maxcount() );
+                    while (i < files.length );
                 }
+
+                var obj = arr.sort(function(a,b){
+                    var c = new Date(a.date);
+                    var d = new Date(b.date);
+                    return d-c;
+                });
+
+                var c = 0;
+
+                do {
+                    feed.item({
+                        title: obj[c].title,
+                        date: obj[c].date,
+                        categories: [obj[c].category],
+                        description: obj[c].contentWithImage,
+                        url: settings.site_url + "/" + folder + "/" + obj[c].slug,
+                        enclosure: {
+                            url: settings.site_url + obj[c].banner
+                        }
+                    });
+                    //  Cache our files structure here
+                    xml = feed.xml();
+
+                    //  After re-structuring our files
+                    //  Write them to xml file
+                    //  Store the outfile to desire location
+                    extension.writeFile(output, xml, extension.compiler);
+
+                    c++;
+                }
+                while (c < maxcount() );
             };
 
             // This triggers all chain events
@@ -127,20 +140,6 @@ module.exports = function(opts) {
         RSSGenerator.prototype.searchPath = function() {
             var entry, title, date, banner, shortdesc, content, slug, xml, enclosure, contentWithImage;
             return fs.readdir(folder, this.compiler);
-        };
-
-        // This is our feed items
-        RSSGenerator.prototype.feedItems = function() {
-            feed.item({
-                title: title,
-                date: date,
-                categories: [category],
-                description: contentWithImage,
-                url: settings.site_url + "/" + folder + "/" + slug,
-                enclosure: {
-                    url: settings.site_url + banner
-                }
-            });
         };
 
         // Default error generator
@@ -163,10 +162,13 @@ module.exports = function(opts) {
             fs.writeFile(source, data, 'utf8', callback_);
         };
 
-        // Make sure to fetch the most recent files
-        RSSGenerator.prototype.sortDescending = function(a, b) {
-            return a === b ? 0 : b.localeCompare(a);
-        };
+        RSSGenerator.prototype.emptyCategory = function( element ){
+            if( "categories" in element ){
+                return element.categories.split(" ");
+            } else {
+                return folder;
+            }
+        }
 
         return RSSGenerator;
     })();
