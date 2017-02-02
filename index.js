@@ -1,12 +1,11 @@
 /*
-  NOTE:
   - This parser is design to run under roots-cms instance.
   - The plugin has not been tested to run properly on multiple devices.
   - Please refer to this site for more info: https://www.npmjs.com/package/rss
   - Please send issue request if bug is found at: http://github.com/eljun
 */
 
-var _, RSS, fs, path, yfm, sortBy, config;
+var _, RSS, fs, path, yfm, sortBy, config, marked;
 
 fs     = require('fs');
 path   = require('path');
@@ -14,6 +13,7 @@ _      = require('lodash');
 yfm    = require('yaml-front-matter');
 RSS    = require('rss');
 config = require('./lib/config');
+marked = require('marked');
 
 module.exports = function(opts) {
     var RSSGenerator, folder, helperName, output, json, settings, counter, limitter, setDefault;
@@ -92,7 +92,7 @@ module.exports = function(opts) {
                             "banner": entry.banner,
                             "shortdesc": entry.shortdesc,
                             "slug": extension.emptySlug(entry),
-                            "contentWithImage": "<img src='"+ settings.site_url + entry.banner +"' class='img-responsive'>" + entry.__content
+                            "contentWithImage": "<img src='"+ settings.site_url + entry.banner +"' class='img-responsive'>" + marked(entry.__content)
                         }
                         arr.push(json)
                         i++;
