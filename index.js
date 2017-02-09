@@ -14,6 +14,7 @@ yfm    = require('yaml-front-matter');
 RSS    = require('rss');
 config = require('./lib/config');
 marked = require('marked');
+S      = require('underscore.string');
 
 module.exports = function(opts) {
     var RSSGenerator, folder, helperName, output, json, settings, counter, limitter, setDefault;
@@ -162,8 +163,8 @@ module.exports = function(opts) {
             fs.writeFile(source, data, 'utf8', callback_);
         };
         RSSGenerator.prototype.emptySlug = function( element ) {
-            if( element.cmsUserSlug.length === 0 ) {
-                return this.formatter( element.title );
+            if(typeof element.cmsUserSlug == "undefined" || element.cmsUserSlug.length === 0 ) {
+                return S.slugify(element.title);
             }
             return element.cmsUserSlug;
         }

@@ -1,6 +1,6 @@
 {
   "name": "webriq-roots-rss-generator",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Extension for creating RSS using the roots-collection module",
   "main": "index.js",
   "scripts": {
@@ -25,6 +25,7 @@
     "lodash": "^4.13.1",
     "rapture": "0.0.7",
     "rss": "^1.2.1",
+    "underscore.string": "^3.3.4",
     "yaml-front-matter": "^3.4.0"
   }
 }
