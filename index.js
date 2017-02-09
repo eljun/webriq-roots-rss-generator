@@ -86,14 +86,22 @@ module.exports = function(opts) {
                         //  Then use yaml front matter
                         //  Re-structure our files
                         entry     = yfm.loadFront(path.join(folder, files[i]));
+
+                        function customBanner() {
+                            if( "banner" in entry ) {
+                                return entry.banner;
+                            }else {
+                                return entry.thumbnail;
+                            }
+                        }
                         var json = {
                             "title": entry.title,
                             "date": entry.date,
                             "category": extension.emptyCategory(entry),
-                            "banner": entry.banner,
+                            "banner": customBanner(),
                             "shortdesc": entry.shortdesc,
                             "slug": extension.emptySlug(entry),
-                            "contentWithImage": "<img src='"+ settings.site_url + entry.banner +"' class='img-responsive'>" + marked(entry.__content)
+                            "contentWithImage": "<img src='"+ settings.site_url + customBanner() +"' class='img-responsive'>" + marked(entry.__content)
                         }
                         arr.push(json)
                         i++;
