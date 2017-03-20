@@ -100,7 +100,7 @@ module.exports = function(opts) {
                             "category": extension.emptyCategory(entry),
                             "banner": customBanner(),
                             "shortdesc": entry.shortdesc,
-                            "slug": extension.emptySlug(entry),
+                            "slug": path.basename(files[i], '.md'),
                             "contentWithImage": "<img src='"+ settings.site_url + customBanner() +"' class='img-responsive'>" + marked(entry.__content)
                         }
                         arr.push(json)
