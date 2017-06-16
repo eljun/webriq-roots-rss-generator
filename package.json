@@ -1,6 +1,6 @@
 {
   "name": "webriq-roots-rss-generator",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Extension for creating RSS using the roots-collection module",
   "main": "index.js",
   "scripts": {

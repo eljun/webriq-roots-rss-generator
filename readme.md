@@ -61,6 +61,10 @@ extensions: [
 - This module is only applicable when your are using http://roots.cx/
 - This module uses https://www.npmjs.com/package/rss. **(NOTE: Not all options were added thought)**.
 
+## Fixes
+
+- v2.0.2 : Remove Banner image in the footer if banner is not defined
+- v2.0.1 : Added customize banner in the body
 
 ##Contributing 
 

@@ -94,6 +94,13 @@ module.exports = function(opts) {
                                 return entry.thumbnail;
                             }
                         }
+                        function contentImage(){
+                            if(entry.banner == "undefined" || entry.banner == null){
+                                return marked(entry.__content)
+                            }else {
+                                return "<img src='"+ settings.site_url + customBanner() +"' class='img-responsive'>" +  marked(entry.__content)
+                            }
+                        }
                         var json = {
                             "title": entry.title,
                             "date": entry.date,
@@ -101,7 +108,7 @@ module.exports = function(opts) {
                             "banner": customBanner(),
                             "shortdesc": entry.shortdesc,
                             "slug": path.basename(files[i], '.md'),
-                            "contentWithImage": "<img src='"+ settings.site_url + customBanner() +"' class='img-responsive'>" + marked(entry.__content)
+                            "contentWithImage": contentImage()
                         }
                         arr.push(json)
                         i++;
